@@ -1,0 +1,120 @@
+{% extends "qna/base.html"%}
+{% block title %}Permutation Generator Home{% endblock title %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<body style = "background-color: #cfcfcf">
+{% endblock %}
+{% block active_nav %}
+    <li class="nav-item">
+      <a class="nav-link active" href="{% url 'qna-home' %}">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'help-page' %}">Help</a>
+    </li>
+{% endblock active_nav %}
+
+{% block content %}
+      <div class="py-5 text-center bg-dark">
+        <h2>Permutation</h2>
+      {% if twoline %}
+      <h2>
+          {{ twoline | safe}}
+      </h2>
+      {% endif %}
+        <form action="{% url 'qna-home' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+            <p></p>
+        <input class ="btn-primary" type="submit" value="Generate new permutation" name="generate">
+        </form>
+      </div>
+
+     {% if form1 %}
+    <form action="{% url 'qna-home' %}" method="post">
+        {% csrf_token %}
+    <div class = "container text-dark py-5">
+        <div class = "row">
+        <div class="col text-center">
+            <h5><p><strong>Find the order of the given permutation</strong></p></h5>
+            <p><em><strong>Definition:</strong></em> If \(\sigma\) is a permutation of the elements in the set \(\{1,2,...,n\}\), then the order of \(\sigma\) is the smallest positive integer \(m\) such that \({\sigma}^m = \epsilon\), where \(\epsilon\) is the identity permutation </p>
+            <p>Using the definition, write the order of the above permutation in the text box below</p>
+            {{ form1.orderAnswer.errors }}
+            {{ form1.orderAnswer }}
+            <p></p>
+            {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == "order error"%}
+                <div class="alert alert-danger">
+                {{ message }}
+            </div>
+            {% elif message.tags == 'order success' %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+
+        <div class="col text-center" >
+            <h5><p><strong>Find the sign of the given permutation</strong></p></h5>
+            <p><em><strong>Definition:</strong></em> A permutation \(\sigma\) is even or odd if it can be expressed using an even or odd number of transpositions respectively. The sign of \(\sigma\) is defined as \(1\) if \(\sigma\) is even and \(-1\) if \(\sigma\) is odd </p>
+            <p>Using the definition, write the sign of the above permutation in the text box below</p>
+            {{ form1.signAnswer.errors }}
+            {{ form1.signAnswer }}
+            <p></p>
+            {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == "sign error"%}
+                <div class="alert alert-danger">
+                {{ message }}
+            </div>
+            {% elif message.tags == 'sign success' %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+
+        <div class="col text-center">
+            <h5><p><strong>Write in cycle notation</strong></p></h5>
+             <p><em><strong>Definition:</strong></em> In cycle notation, the permutation is expressed as a product of disjoint cyclic permutations. There can be several ways to express a permutation in cycle form, and 1-cycles can be omitted if needed</p>
+            <p>Write the answer in the form of brackets with numbers inside them e.g. \((231)(54)\)</p>
+            {{ form1.cyclicAnswer.errors }}
+            {{ form1.cyclicAnswer }}
+            <p></p>
+            {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == "cyclic error"%}
+                <div class="alert alert-danger">
+                {{ message }}
+            </div>
+            {% elif message.tags == 'cyclic success' %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+        </div>
+    </div>
+        <div class = "d-flex justify-content-center align-items-center" style ="height: 5vh">
+            {% if messages %}
+                {% for message in messages %}
+                {% if message.message == 'Invalid Cycle Notation. Try again' %}
+                    <input class ="btn-primary" type="submit" value="Submit Answers" name="submit">
+                 {% endif %}
+                 {% endfor %}
+            {% else %}
+                <input class ="btn-primary" type="submit" value="Submit Answers" name="submit">
+            {% endif %}
+        </div>
+        </form>
+     {% endif %}
+
+
+{% endblock content %}

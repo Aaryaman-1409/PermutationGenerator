@@ -1,0 +1,23 @@
+{% extends "qna/base.html" %}
+{% block title %}Permutation Generator Help{% endblock title %}
+
+{% block active_nav %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'qna-home' %}">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'help-page' %}">Help</a>
+    </li>
+{% endblock active_nav %}
+
+{% block content %}
+    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+        <div class="p-2 h4">Video on how to use</div>
+        <div class="p-2">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe height="315" width="560" class="embed-responsive-item"
+                        src="https://www.youtube.com/embed/P4KId84TztQ" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
